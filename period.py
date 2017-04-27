@@ -1,18 +1,20 @@
 from collections import namedtuple
 import datetime
-from typing import Tuple
+from itertools import groupby
+from operator import itemgetter
+from typing import Iterable, Tuple
 
 
 Period = namedtuple('Period', ['discipline', 'room', 'teacher'])
 PeriodWithTime = Tuple[Tuple[int, int], Period]
 
 period_mapping = {
-    (8, 30): 1,
-    (10, 15): 2,
-    (12, 0): 3,
-    (14, 15): 4,
-    (16, 0): 5,
-    (17, 40): 6
+    (8, 30): 0,
+    (10, 15): 1,
+    (12, 0): 2,
+    (14, 15): 3,
+    (16, 0): 4,
+    (17, 40): 5
 }
 
 
@@ -38,6 +40,7 @@ def read_period(it):
     next(it)
     return place, Period(discipline, room, teacher)
 
+
 def extract_periods(schedule: str):
     periods = []
     it = iter(schedule.splitlines()[7:])
@@ -46,3 +49,9 @@ def extract_periods(schedule: str):
             periods.append(read_period(it))
         except StopIteration:
             return periods
+
+
+def split_to_days(periods: Iterable[PeriodWithTime]):
+    sorted_ = sorted(periods, key=itemgetter(0, 0))
+    days = groupby(sorted_, key=itemgetter(0, 0))
+    return [list(d) for k, d in days]

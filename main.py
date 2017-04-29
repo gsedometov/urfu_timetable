@@ -10,7 +10,8 @@ def main():
     periods = extract_periods(schedule)
     tt = Timetable()
     tt.load_periods(periods)
-    print(split_to_days([((1, 1), Period(1, 2, 3))]))
+    #print(tt)
+    print(split_to_days([((1, 1), Period(1, 2, 3)), ((2, 1), Period(3,2,1)), ((1, 2), Period(5, 6, 7))]))
 
 
 if __name__ == '__main__':

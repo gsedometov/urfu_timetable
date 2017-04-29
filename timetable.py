@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from period import PeriodWithTime
+from period import PeriodWithTime, split_to_days
 
 
 class Timetable:
@@ -38,4 +38,4 @@ class Timetable:
 
     @classmethod
     def from_periods(cls, periods):
-        pass
+        days = split_to_days(periods)

@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from period import PeriodWithTime, split_to_days
+from period import PeriodWithTime
 
 
 class Timetable:
@@ -22,8 +22,7 @@ class Timetable:
             if not self[time]:
                 self[time] = period
             else:
-                self[time[0]+self._days//2, time[1]] = period
-
+                self[time[0] + self._days // 2, time[1]] = period
 
     @classmethod
     def from_days(cls, days):
@@ -34,8 +33,3 @@ class Timetable:
             for j, period in enumerate(day):
                 tt[i, j] = period
         return tt
-
-
-    @classmethod
-    def from_periods(cls, periods):
-        days = split_to_days(periods)
